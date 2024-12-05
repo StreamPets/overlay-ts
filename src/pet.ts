@@ -17,9 +17,9 @@ export class Pet extends Actor {
 	onInitialize(_engine: Engine) {
 		const imageSource = new ImageSource(this.graphicUrl);
 
-		(async () => {
-			await imageSource.load();
-		})();
+		imageSource.load().catch((err) => {
+			console.error(err);
+		});
 
 		const sprite = new Sprite({
 			image: imageSource,
