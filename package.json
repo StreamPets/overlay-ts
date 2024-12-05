@@ -1,0 +1,25 @@
+{
+	"name": "zombiekiller",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"serve": "vite preview",
+		"test": "npm run build && ex-test -d ./dist -t ./test/test.js",
+		"format": "biome format --write ./",
+		"lint": "biome lint --write --unsafe ./"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.3",
+		"@types/bun": "latest",
+		"excalibur": "0.29.3",
+		"vite": "5.4.9"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@excaliburjs/testing": "^0.26.0"
+	}
+}

@@ -1,0 +1,12 @@
+# Node Modules
+node_modules
+
+# Editor configs
+.vscode
+.idea
+
+# Environment files
+.env
+*.env
+.env.*
+!example.env
