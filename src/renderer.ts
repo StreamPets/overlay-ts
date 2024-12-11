@@ -42,6 +42,19 @@ export class Renderer extends Engine {
 
 	start(loader: DefaultLoader) {
 		this.add('world', this.world);
+
+		// Testing - Start
+		this.world.add(
+			new Pet('/black-rex.png', {
+				height: 100,
+				width: 100,
+				pos: new Vector(0, 0),
+			}),
+		);
+
+		this.goToScene('world');
+		// Testing - End
+
 		return super.start(loader);
 	}
 }

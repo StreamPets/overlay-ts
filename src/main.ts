@@ -9,7 +9,7 @@ new EventManager(renderer);
 renderer
 	.start(new Loader())
 	.then(() => {
-		console.log('Renderer started!');
+		console.log('[Renderer] Ready!');
 	})
 	.catch((err) => {
 		console.error(err);
