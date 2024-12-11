@@ -6,15 +6,17 @@ import {
 	Sprite,
 	Vector,
 } from 'excalibur';
+import {
+	BREAK_CHANCE,
+	MAX_BREAK_DURATION,
+	MIN_BREAK_DURATION,
+} from './constants.ts';
 
 export class Pet extends Actor {
 	public speed = 100;
 	private direction = Vector.Right;
 	private isMoving = false;
-	private minBreakDuration = 1000; // 1 second
-	private maxBreakDuration = 3000; // 3 seconds
 	private breakDuration = 0;
-	private breakChance = 0.01; // 1% chance to start a break per frame
 
 	constructor(
 		private graphicUrl: string,
@@ -55,7 +57,7 @@ export class Pet extends Actor {
 			this.graphics.flipHorizontal = this.direction.x < 0;
 
 			// Randomly decide whether to start a break
-			if (Math.random() < this.breakChance) {
+			if (Math.random() < BREAK_CHANCE) {
 				this.isMoving = false;
 			}
 
@@ -65,9 +67,8 @@ export class Pet extends Actor {
 			if (this.breakDuration <= 0) {
 				this.isMoving = true;
 				this.breakDuration =
-					Math.random() *
-						(this.maxBreakDuration - this.minBreakDuration) +
-					this.minBreakDuration;
+					Math.random() * (MAX_BREAK_DURATION - MIN_BREAK_DURATION) +
+					MIN_BREAK_DURATION;
 			}
 		}
 	}
