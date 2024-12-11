@@ -1,3 +1,4 @@
+import { SSE_ENDPOINT } from './constants.ts';
 import type { Pet } from './pet.ts';
 import type { Renderer } from './renderer.ts';
 
@@ -6,13 +7,19 @@ export class EventManager {
 	private connectedUsers: Record<string, Pet> = {};
 
 	constructor(private renderer: Renderer) {
-		this.eventSource = new EventSource('/listen');
+		const { searchParams } = new URL(window.location.href);
+
+		this.eventSource = new EventSource(
+			`${SSE_ENDPOINT}?${searchParams.toString()}`,
+		);
 
 		this.eventSource.onopen = () => {
 			this.renderer.goToScene('world').catch((err) => {
 				console.error(err);
 			});
 		};
+
+		// TODO: Error handling for connection to backend
 
 		this.eventSource.onmessage = (event: MessageEvent) => {
 			const data = JSON.parse(event.data);
