@@ -51,11 +51,8 @@ export class Pet extends Actor {
 
 			// Mathematical trick to reverse direction
 			const sign = Math.sign(Math.abs(newPos.x) - engine.halfDrawWidth);
-			const newDirection = this.direction.scale(-sign);
-
-			// TODO: Fix graphic not flipping on direction change
-			this.graphics.flipHorizontal = !(newDirection !== this.direction);
-			this.direction = newDirection;
+			this.direction.scaleEqual(-sign);
+			this.graphics.flipHorizontal = this.direction.x < 0;
 
 			// Randomly decide whether to start a break
 			if (Math.random() < this.breakChance) {
