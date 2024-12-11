@@ -60,10 +60,6 @@ export class Pet extends Actor {
 			// Randomly decide whether to start a break
 			if (Math.random() < this.breakChance) {
 				this.isMoving = false;
-				this.breakDuration =
-					Math.random() *
-						(this.maxBreakDuration - this.minBreakDuration) +
-					this.minBreakDuration;
 			}
 
 			this.pos = newPos;
