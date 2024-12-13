@@ -8,6 +8,7 @@ import {
 } from 'excalibur';
 import {
 	BREAK_CHANCE,
+	JUMP_VELOCITY,
 	MAX_BREAK_DURATION,
 	MIN_BREAK_DURATION,
 } from './constants.ts';
@@ -16,7 +17,9 @@ export class Pet extends Actor {
 	public speed = 100;
 	private direction = Vector.Right;
 	private isMoving = false;
+	private isJumping = false;
 	private breakDuration = 0;
+	private verticalVelocity = 0;
 
 	constructor(
 		private graphicUrl: string,
@@ -46,6 +49,16 @@ export class Pet extends Actor {
 	update(engine: Engine, delta: number) {
 		super.update(engine, delta);
 
+		if (this.isJumping) {
+			this.verticalVelocity += 981 * (delta / 1000);
+			this.pos.y += this.verticalVelocity * (delta / 1000);
+			if (this.pos.y >= 0) {
+				this.pos.y = 0;
+				this.verticalVelocity = 0;
+				this.isJumping = false;
+			}
+		}
+
 		if (this.isMoving) {
 			const newPos = this.pos.add(
 				this.direction.scale((this.speed * delta) / 1000),
@@ -70,6 +83,13 @@ export class Pet extends Actor {
 					Math.random() * (MAX_BREAK_DURATION - MIN_BREAK_DURATION) +
 					MIN_BREAK_DURATION;
 			}
+		}
+	}
+
+	jump() {
+		if (!this.isJumping) {
+			this.isJumping = true;
+			this.verticalVelocity = -JUMP_VELOCITY;
 		}
 	}
 }

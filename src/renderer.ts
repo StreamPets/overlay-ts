@@ -44,15 +44,19 @@ export class Renderer extends Engine {
 		this.add('world', this.world);
 
 		// Testing - Start
-		this.world.add(
-			new Pet('/black-rex.png', {
-				height: 100,
-				width: 100,
-				pos: new Vector(0, 0),
-			}),
-		);
+		const defaultRex = new Pet('/black-rex.png', {
+			height: 100,
+			width: 100,
+			pos: new Vector(0, 0),
+		});
+
+		this.world.add(defaultRex);
 
 		this.goToScene('world');
+
+		setTimeout(() => {
+			defaultRex.jump();
+		}, 2000);
 		// Testing - End
 
 		return super.start(loader);
